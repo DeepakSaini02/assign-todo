@@ -1,23 +1,27 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import "./style.css"
-export const AddTodoPopUp=({handleClose})=>{
-  const [task,setTask]=useState('')
+import { AppContext } from "../../Context";
 
-  const handleSubmit=()=>{
-    if(!task){
+export const AddTodoPopUp = ({ handleClose }) => {
+  const [task, setTask] = useState('')
+  const { submitTask } = useContext(AppContext);
+
+  const handleSubmit = () => {
+    if (!task) {
       return;
     }
- console.log(task);
+    console.log(task);
+    submitTask(task)
   }
 
-  const handleChange=(val)=>{
+  const handleChange = (val) => {
     setTask(val)
   }
 
-    return <div className="popup-box">
+  return <div className="popup-box">
     <div className="box">
       <span className="close-icon" onClick={handleClose}>x</span>
-      <input onChange={(event)=>handleChange(event.target.value)} type="text" value={task}/>
+      <input onChange={(event) => handleChange(event.target.value)} type="text" value={task} />
       <button onClick={handleSubmit}>Submit</button>
     </div>
   </div>
