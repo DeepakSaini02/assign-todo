@@ -3,12 +3,12 @@ import { AppContext } from "../Context";
 
 export const TodoList = ({ data }) => {
     console.log(data, 'data');
-    const {deleteTask}=useContext(AppContext);
+    const {handleTaskCompletion,deleteTask}=useContext(AppContext);
     return <div>
         {
             data.map((item, index) => <div key={item.id}>
-                <input type="checkbox" defaultChecked={item.completed} />
-                <span>{`${index + 1} ${item.task}`}</span>
+                <input type="checkbox" onClick={()=>handleTaskCompletion(item)} defaultChecked={item.completed} />
+                <span style={item.completed ? {textDecoration:'line-through'} : {}}>{`${index + 1} ${item.task}`}</span>
                 <span>
                     <button onClick={()=>deleteTask(item)}>Delete</button>
                 </span>

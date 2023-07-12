@@ -20,6 +20,13 @@ export const AppContextProvider = ({ children }) => {
         getAllTask();
     }
 
+    const handleTaskCompletion=(taskDetails)=>{
+        const updatedTask=allTask.map(task=>task.id===taskDetails.id ? ({...task,completed:!task.completed}) : task);
+        
+        addLocalStorage(localStorageKey.addTodo,updatedTask)
+        getAllTask()
+    }
+
     const deleteTask=(taskDetails)=>{
         const updatedTask=allTask.filter(task=>task.id!==taskDetails.id);
         addLocalStorage(localStorageKey.addTodo,updatedTask)
@@ -35,7 +42,7 @@ export const AppContextProvider = ({ children }) => {
         res && setAllTask(res);
     }
 
-    return <AppContext.Provider value={{ allTask,submitTask,deleteTask}}>
+    return <AppContext.Provider value={{ allTask,submitTask,deleteTask,handleTaskCompletion}}>
         {children}
     </AppContext.Provider>
 }
