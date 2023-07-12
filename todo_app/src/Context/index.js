@@ -33,6 +33,12 @@ export const AppContextProvider = ({ children }) => {
         getAllTask()
     }
 
+    const updateTask=(taskDetails,taskTitle)=>{
+        const updatedTask=allTask.map(task=>task.id===taskDetails.id ? ({...task,task:taskTitle}) : task);
+        addLocalStorage(localStorageKey.addTodo,updatedTask)
+        getAllTask()
+    }
+
     useEffect(()=>{
         getAllTask()
     },[])
@@ -42,7 +48,7 @@ export const AppContextProvider = ({ children }) => {
         res && setAllTask(res);
     }
 
-    return <AppContext.Provider value={{ allTask,submitTask,deleteTask,handleTaskCompletion}}>
+    return <AppContext.Provider value={{ allTask,submitTask,deleteTask,handleTaskCompletion,updateTask}}>
         {children}
     </AppContext.Provider>
 }
